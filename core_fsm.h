@@ -16,8 +16,7 @@ struct fsm_step {
 class fsm {
 public:
     constexpr fsm ( const fsm_step* const vector_fsm ) : vector_fsm( vector_fsm ) {}
-
-    void    start       ( void ) const;
+    void start ( void ) const;
 
 private:
     const fsm_step* const vector_fsm;

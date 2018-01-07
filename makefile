@@ -8,7 +8,7 @@ FSM_OBJ_FILE		:= $(patsubst %.cpp, %.o, $(FSM_OBJ_FILE))
 build/obj/module_fsm/%.o:	module_fsm/%.cpp
 	@echo [CPP] $<
 	@mkdir -p $(dir $@)
-	@$(CPP) $(CPP_FLAGS) $(FSM_PATH) -c $< -o $@
+	@$(CPP) $(CPP_FLAGS) $(FSM_OPTIMIZATION) $(FSM_PATH) -c $< -o $@
 
 # Добавляем к общим переменным проекта.
 PROJECT_PATH			+= $(FSM_PATH)

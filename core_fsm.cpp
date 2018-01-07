@@ -23,7 +23,7 @@ void fsm::start ( void ) const {
             continue;
         }
 
-        now_step        = now_step->number_step_false;                                  // Если успеха достичь не удалось.
+        now_step       	= now_step->number_step_false;                                  // Если успеха достичь не удалось.
         repeat_loop     = now_step->repeat_step;
     }
 }
