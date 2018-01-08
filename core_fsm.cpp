@@ -7,6 +7,7 @@ void fsm::start ( void ) const {
     bool        result                  = false;                                        // Результат выполнения шага.
 
     while( true ) {
+    	if ( now_step == nullptr ) return;												// Если nullptr, то бросаем машину.
         result = now_step->func_step( previous_step );                                  // Выполняем шаг.
 
         if ( result == true ) {                                                         // В случае успеха переходим на следующий.
