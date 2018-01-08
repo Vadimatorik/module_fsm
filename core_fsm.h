@@ -6,11 +6,13 @@
 
 #define REPEAT_STEP_MAX             0xFFFFFFFF
 
+#define FSM_RET_REPEAT				-1
+#define FSM_RET_ERROR				-2
+
 struct fsm_step {
-    bool ( *func_step )     ( const fsm_step* previous_step );
-    const fsm_step*     const number_step_true;
-    const fsm_step*     const number_step_false;
-    uint32_t            repeat_step;
+    int ( *func_step )     ( const fsm_step* previous_step );
+    const fsm_step**     const next_step_array;												// Массив возможных путей по выходе.
+    const uint8_t     	number_array;														// Количество возможных путей по выходе.
 };
 
 class fsm {

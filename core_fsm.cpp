@@ -1,30 +1,20 @@
 #include "core_fsm.h"
 
 void fsm::start ( void ) const {
-    uint32_t    repeat_loop             = this->vector_fsm[ 0 ].repeat_step;            // Количество попыток повтора команды в случае неудачи.
     const fsm_step* now_step            = &this->vector_fsm[ 0 ];                       // Структура текущего шага.
     const fsm_step* previous_step       = &this->vector_fsm[ 0 ];                       // Структура предыдущего шага (из которого пришли в эту функцию).
-    bool        result                  = false;                                        // Результат выполнения шага.
+    int8_t	result						= 0;											// Результат выполнения шага.
 
     while( true ) {
-    	if ( now_step == nullptr ) return;												// Если nullptr, то бросаем машину.
-        result = now_step->func_step( previous_step );                                  // Выполняем шаг.
+    	if ( now_step == nullptr ) return;
+    	result = now_step->func_step( previous_step );                                  // Выполняем шаг.
 
-        if ( result == true ) {                                                         // В случае успеха переходим на следующий.
-            previous_step   = now_step;
-            now_step        = now_step->number_step_true;
-            repeat_loop     = now_step->repeat_step;
-            continue;
-        };
+    	if ( result == -1 ) continue;													// Если пришел запрос на повтор.
+    	if ( result == -2 ) return;														// Если ошибка.
 
-        if ( repeat_loop == REPEAT_STEP_MAX ) continue;                                 // Если мы должны ждать успеха вечность.
+    	if ( result >= now_step->number_array ) return;									// Если приказали перейти туда, чего не существует.
 
-        if ( repeat_loop != 0 ) {
-            repeat_loop--;
-            continue;
-        }
-
-        now_step       	= now_step->number_step_false;                                  // Если успеха достичь не удалось.
-        repeat_loop     = now_step->repeat_step;
+        previous_step   = now_step;
+        now_step        = now_step->next_step_array[ result ];
     }
 }
