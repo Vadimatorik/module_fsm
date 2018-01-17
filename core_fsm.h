@@ -9,6 +9,7 @@
 #define FSM_RET_REPEAT				-1
 #define FSM_RET_ERROR				-2
 
+// Если нет повторений, то по nullptr происходит аварийный выход.
 struct fsm_step {
     int ( *func_step )     ( const fsm_step* previous_step );
     const fsm_step**     const next_step_array;												// Массив возможных путей по выходе.
