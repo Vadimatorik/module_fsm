@@ -25,14 +25,23 @@ struct fsm_step {
 template < class object_type >
 class fsm_class {
 public:
-	fsm_class ( const fsm_step< object_type >* const vector_fsm, object_type* obj ) : vector_fsm( vector_fsm ), obj( obj ) {}
+	fsm_class ( const fsm_step< object_type >* vector_fsm, object_type* obj ) : vector_fsm( vector_fsm ), obj( obj ) {}
+	fsm_class () : vector_fsm( nullptr ), obj( nullptr ) {}
+
+	void relinking( const fsm_step< object_type >* vector_fsm, object_type* obj );
 
 	fsm_result start ( void ) const;
 
 private:
-	const fsm_step< object_type >*	const vector_fsm;
-	object_type*					obj;
+	mutable const fsm_step< object_type >*		vector_fsm;
+	mutable object_type*						obj;
 };
+
+template < class object_type >
+void fsm_class< object_type >::relinking( const fsm_step< object_type >* vector_fsm, object_type* obj ) {
+	this->vector_fsm		= vector_fsm;
+	this->obj				= obj;
+}
 
 template < class object_type >
 fsm_result fsm_class< object_type >::start ( void ) const {
