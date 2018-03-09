@@ -1,8 +1,8 @@
 #pragma once
 
-#ifdef __cplusplus
-
 #include <stdint.h>
+
+#ifdef __cplusplus
 
 enum class fsm_result {
 	func_error				= -1,
