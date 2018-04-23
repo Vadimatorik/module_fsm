@@ -4,11 +4,11 @@
 
 #ifdef __cplusplus
 
-enum class fsm_result {
-	func_error				= -1,
-	overflow_number_step	= -2,
-	func_nullptr			= -3,
-	step_nullptr			= -4
+enum class fsmResult {
+	funcError				= -1,
+	overflowNumberStep		= -2,
+	funcNullptr				= -3,
+	stepNullptr				= -4
 };
 
 #define FSM_RET_REPEAT					-1
@@ -30,7 +30,7 @@ public:
 
 	void relinking( const fsmStep< objectType >* vector_fsm, objectType* obj );
 
-	fsm_result start ( void );
+	fsmResult start ( void );
 
 private:
 	const fsmStep< objectType >*		vector_fsm;
@@ -44,21 +44,21 @@ void fsmClass< objectType >::relinking( const fsmStep< objectType >* vectorFsm, 
 }
 
 template < class objectType >
-fsm_result fsmClass< objectType >::start ( void ) {
+fsmResult fsmClass< objectType >::start ( void ) {
 	const fsmStep< objectType >* nowStep			= &this->vector_fsm[ 0 ];						// Структура текущего шага.
-	const fsmStep< objectType >* previousStep	= &this->vector_fsm[ 0 ];						// Структура предыдущего шага (из которого пришли в эту функцию).
+	const fsmStep< objectType >* previousStep	= &this->vector_fsm[ 0 ];							// Структура предыдущего шага (из которого пришли в эту функцию).
 	int	result = 0;																					// Результат выполнения шага.
 
 	while( true ) {
-		if ( nowStep == nullptr )					return fsm_result::step_nullptr;
-		if ( nowStep->funcStep == nullptr )		return fsm_result::func_nullptr;
-		result = nowStep->func_step( previousStep, this->obj );									// Выполняем шаг.
+		if ( nowStep == nullptr )					return fsmResult::stepNullptr;
+		if ( nowStep->funcStep == nullptr )			return fsmResult::funcNullptr;
+		result = nowStep->funcStep( previousStep, this->obj );										// Выполняем шаг.
 
 		if ( result == FSM_RET_REPEAT ) continue;													// Если пришел запрос на повтор.
-		if ( result == FSM_RET_ERROR )	return fsm_result::func_error;								// Если ошибка.
+		if ( result == FSM_RET_ERROR )	return fsmResult::funcError;								// Если ошибка.
 
 		if ( result >= nowStep->numberArray )														// Если приказали перейти туда, чего не существует.
-			return fsm_result::overflow_number_step;
+			return fsmResult::overflowNumberStep;
 
 		previousStep	= nowStep;
 		nowStep		= nowStep->nextStepArray[ result ];
