@@ -46,7 +46,7 @@ void fsmClass< objectType >::relinking( const fsmStep< objectType >* vectorFsm, 
 template < class objectType >
 fsmResult fsmClass< objectType >::start ( void ) {
 	const fsmStep< objectType >* nowStep			= &this->vector_fsm[ 0 ];						// Структура текущего шага.
-	const fsmStep< objectType >* previousStep	= &this->vector_fsm[ 0 ];							// Структура предыдущего шага (из которого пришли в эту функцию).
+	const fsmStep< objectType >* previousStep		= &this->vector_fsm[ 0 ];						// Структура предыдущего шага (из которого пришли в эту функцию).
 	int	result = 0;																					// Результат выполнения шага.
 
 	while( true ) {
