@@ -37,7 +37,7 @@ private:
 
 template < class objectType >
 fsmResult fsmClass< objectType >::start ( const fsmStep< objectType >* vectorFsm, objectType* obj ) {
-	this->vectorFsm		= vectorFsm;
+	this->vectorFsm			= vectorFsm;
 	this->obj				= obj;
 
 	const fsmStep< objectType >* nowStep			= &this->vectorFsm[ 0 ];						// Структура текущего шага.
