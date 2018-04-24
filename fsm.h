@@ -25,28 +25,25 @@ struct fsmStep {
 template < class objectType >
 class fsmClass {
 public:
-	fsmClass ( const fsmStep< objectType >* vectorFsm, objectType* obj ) : vector_fsm( vectorFsm ), obj( obj ) {}
-	fsmClass () : vector_fsm( nullptr ), obj( nullptr ) {}
+	fsmClass ( const fsmStep< objectType >* vectorFsm, objectType* obj ) : vectorFsm( vectorFsm ), obj( obj ) {}
+	fsmClass () : vectorFsm( nullptr ), obj( nullptr ) {}
 
 	void relinking( const fsmStep< objectType >* vector_fsm, objectType* obj );
 
 	fsmResult start ( void );
 
 private:
-	const fsmStep< objectType >*		vector_fsm;
-	objectType*						obj;
+	const fsmStep< objectType >*		vectorFsm;
+	objectType*							obj;
 };
 
 template < class objectType >
-void fsmClass< objectType >::relinking( const fsmStep< objectType >* vectorFsm, objectType* obj ) {
-	this->vector_fsm		= vectorFsm;
+fsmResult fsmClass< objectType >::start ( const fsmStep< objectType >* vectorFsm, objectType* obj ) {
+	this->vectorFsm		= vectorFsm;
 	this->obj				= obj;
-}
 
-template < class objectType >
-fsmResult fsmClass< objectType >::start ( void ) {
-	const fsmStep< objectType >* nowStep			= &this->vector_fsm[ 0 ];						// Структура текущего шага.
-	const fsmStep< objectType >* previousStep		= &this->vector_fsm[ 0 ];						// Структура предыдущего шага (из которого пришли в эту функцию).
+	const fsmStep< objectType >* nowStep			= &this->vectorFsm[ 0 ];						// Структура текущего шага.
+	const fsmStep< objectType >* previousStep		= &this->vectorFsm[ 0 ];						// Структура предыдущего шага (из которого пришли в эту функцию).
 	int	result = 0;																					// Результат выполнения шага.
 
 	while( true ) {
