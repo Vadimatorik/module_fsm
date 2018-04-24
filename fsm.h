@@ -28,9 +28,7 @@ public:
 	fsmClass ( const fsmStep< objectType >* vectorFsm, objectType* obj ) : vectorFsm( vectorFsm ), obj( obj ) {}
 	fsmClass () : vectorFsm( nullptr ), obj( nullptr ) {}
 
-	void relinking( const fsmStep< objectType >* vector_fsm, objectType* obj );
-
-	fsmResult start ( void );
+	fsmResult start ( const fsmStep< objectType >* vector_fsm, objectType* obj );
 
 private:
 	const fsmStep< objectType >*		vectorFsm;
