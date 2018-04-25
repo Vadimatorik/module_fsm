@@ -56,7 +56,7 @@ fsmResult fsmClass< objectType >::start ( const fsmStep< objectType >* vectorFsm
 			return fsmResult::overflowNumberStep;
 
 		previousStep	= nowStep;
-		nowStep		= nowStep->nextStepArray[ result ];
+		nowStep			= nowStep->nextStepArray[ result ];
 	}
 }
 
