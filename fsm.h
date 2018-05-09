@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef MODULE_FSM_ENABLED
+
 #include <stdint.h>
 
 #ifdef __cplusplus
@@ -59,5 +61,7 @@ fsmResult fsmClass< objectType >::start ( const fsmStep< objectType >* vectorFsm
 		nowStep			= nowStep->nextStepArray[ result ];
 	}
 }
+
+#endif
 
 #endif
